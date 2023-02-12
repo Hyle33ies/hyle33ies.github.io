@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>CS61A Log Pt.1 (Week1-7) | hyle33ies&#39; coding home~</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://hyle33ies.github.io/favicon.ico?v=1676192243856">
+<link rel="stylesheet" href="https://hyle33ies.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="12.19 Lecture 1&amp;2
+Just go through it quickly and set up for it.
+12.20 Lecture 3
+
+Boolean Operators (and, or, not) an..." />
+    <meta name="keywords" content="CSlearning_diary" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://hyle33ies.github.io">
+        <img src="https://hyle33ies.github.io/images/avatar.png?v=1676192243856" class="site-logo">
+        <h1 class="site-title">hyle33ies&#39; coding home~</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://hyle33ies.github.io" class="site-nav">
+            Home Page
+          </a>
+        
+      
+        
+          <a href="https://hyle33ies.github.io/post/about-me" class="site-nav">
+            About Me
+          </a>
+        
+      
+        
+          <a href="https://hyle33ies.github.io/archives" class="site-nav">
+            Archives
+          </a>
+        
+      
+        
+          <a href="https://hyle33ies.github.io/tags" class="site-nav">
+            Tags
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      An ordinary CS Student, keep learning.
+    </div>
+    <div class="site-footer">
+      Acknowledgement: <a href="https://github.com/getgridea/gridea" target="_blank">Gridea&nbsp</a> <a href="https://github.com/imhanjie/gridea-theme-pure">Theme</a>  | <a class="rss" href="https://hyle33ies.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">CS61A Log Pt.1 (Week1-7)</h2>
+            <div class="post-date">2023-01-02</div>
+            
+            <div class="post-content" v-pre>
+              <h3 id="1219-lecture-12">12.19 Lecture 1&amp;2</h3>
+<p>Just go through it quickly and set up for it.</p>
+<h3 id="1220-lecture-3">12.20 Lecture 3</h3>
+<ol>
+<li>Boolean Operators (and, or, not) and Short Circuiting</li>
+<li>Debug Techniques (doctests[python -m doctest], print, interactive debugging[python -i x.py], assert)</li>
+<li>Distinguish between evaluation for if statements &amp; call expressions (About Side Effect)</li>
+<li>You can have two values returned from a function / two variables get them simultaneously</li>
+<li>Truth about operators: for example, multiplication(/) equals a function in operators mul()</li>
+</ol>
+<p><a href="https://inst.eecs.berkeley.edu/~cs61a/fa20/articles/debugging.html">Debug Techniques</a><br>
+<a href="https://docs.python.org/3.4/using/cmdline.html#miscellaneous-options">Python Related Command Lines</a><br>
+<a href="https://docs.python.org/3/library/doctest.html?highlight=doctest">Doctest Documents</a><br>
+<a href="https://blog.csdn.net/sinat_38682860/article/details/104051321">Some important knowledge of Not in python (CSDN)</a></p>
+<h3 id="1221-lecture-4-project1-phase-1-2h23mins">12.21 Lecture 4 + Project1 Phase 1 (2h23mins)</h3>
+<ol>
+<li>Deemed false: 0, false, empty string, empty list</li>
+<li>Higher-Order Functions (generalize some functions into 1) (Grip the mindset)</li>
+<li>Lambda Expressions (Super Important!!!)</li>
+</ol>
+<p><a href="https://inst.eecs.berkeley.edu/~cs61a/fa20/assets/slides/04-Higher-Order_Functions_1pp.pdf">PPT for lecture</a><br>
+<a href="http://composingprograms.com/pages/15-control.html">Assertion Basic (Textbook)</a></p>
+<h3 id="1222-project-1-finish-1h58mins-lecture-5">12.22 Project 1 finish (1h58mins) + Lecture 5</h3>
+<h3 id="1223-lecture-67">12.23 Lecture 6+7</h3>
+<h3 id="1224-skip-lecture-8-lecture-9">12.24 (Skip lecture 8) Lecture 9</h3>
+<h3 id="1225-lecture-1011">12.25 Lecture 10+11</h3>
+<ol>
+<li>list: the usage of getitem, list*2</li>
+<li>list construction: list(range(-2,2))</li>
+<li>creat a list according to an existing one like: [letters[i] for i in [3,4,6,8]], [x+1 for x in odds]<br>
+you can even create &quot;if&quot;: [x for x in odds if 25 % x ==0]<br>
+This may replace a for loop</li>
+<li>use string to write some codes and use &quot;exec&quot;, you can actually execute it!</li>
+<li>an element of string (s[3]) is still a string!</li>
+<li>say, numerals is a name for a dictionary. numerals.keys() and numerals.values() are lists. numerals.items() is a list of tuples, every tuple with two elements of key and value.</li>
+</ol>
+<pre><code class="language-python">&gt;&gt;&gt; numerals = {'I':1,'V':5,'X':10}
+&gt;&gt;&gt; numerals.items()
+dict_items([('X', 10), ('V', 5), ('I', 1)])
+&gt;&gt;&gt; items=numerals.items()
+&gt;&gt;&gt; dict(items)  #builds back the dictionary
+</code></pre>
+<ol start="7">
+<li>dictionary numerals: numerals.get('X',0)<br>
+If 'X' is a key of numerals, return the value, otherwise show the default value 0.</li>
+<li>Similarly, dictionary has a way to construct like list: {x: x*x for x in range(10)}<br>
+creates {0: 0,1: 1, 2: 4...}<br>
+Plus: Lab04 is the easiest lab/homework I've ever met in CS61A!<br>
+But where is Lab03?</li>
+</ol>
+<h3 id="1226-project-2-phase-1-36mins-phase-23-2h3mins">12.26 Project 2 (Phase 1: 36mins, Phase 2&amp;3: 2h3mins)</h3>
+<h3 id="1227-lecture-12-skip-lecture-1314-lecture-15">12.27 Lecture 12 + (skip Lecture 13&amp;14) Lecture 15</h3>
+<ol>
+<li>sum function: sum(iterable[, start]) start by default is 0, when the iterable is empty, return start</li>
+</ol>
+<pre><code class="language-python">&gt;&gt;&gt; sum([2,3,4])
+9
+&gt;&gt;&gt; sum(['2','3','4'])
+Error
+&gt;&gt;&gt; sum([[2,3],[4]],[])
+[2, 3, 4]
+</code></pre>
+<ol start="2">
+<li>
+<p>max(iterable[, key, default])<br>
+max(a, b, c, ... [,key=func])<br>
+notice that after computing the func(x) and find out the max value, what's returned is the x instead of func(x)!<br>
+Usage: With a single iterable argument, return its largest item.<br>
+With two or more arguments, return the largest argument.<br>
+all(iterable) -&gt; bool<br>
+Return True if bool(x) is True for all values x in the iterable.<br>
+Empty iterable also gives True.</p>
+</li>
+<li>
+<p>You can use tuples as the key of a dictionary, but lists can't be the key. (a list inside anywhere tuple can't, either)</p>
+</li>
+<li>
+<p>Code:</p>
+<pre><code class="language-python">def f(s=[]):
+	s.append(3)
+	return len(s)
+&gt;&gt;&gt; f()
+1
+&gt;&gt;&gt; f()
+2 
+&gt;&gt;&gt; f()
+3
+</code></pre>
+<p>That's surprising that s is bound to a same list, so only in the first call s=[]</p>
+</li>
+</ol>
+<p><a href="https://blog.csdn.net/weixin_41920969/article/details/128388987">About the key of max function</a><br>
+<a href="https://www.youtube.com/watch?v=tpfpNR3u4zk&amp;list=PL6BsET-8jgYVDEchBIdQeqrUhlN2MZE6F&amp;index=7">Lists in Environment Diagram (About nested list and it's mutation, hard point in lecture 15 p7)</a></p>
+<h3 id="1228-lecture-16">12.28 Lecture 16</h3>
+<ol>
+<li>nonlocal statement. Notice that if current frame already got an &quot;x&quot;, nonlocal x will receive a syntax error.</li>
+<li>List refers to itself:</li>
+</ol>
+<pre><code class="language-python">&gt;&gt;&gt; t = [1, 2, 3]
+&gt;&gt;&gt; t[1: 3]= [t]
+&gt;&gt;&gt; t
+[1, [...]]
+</code></pre>
+<ol start="3">
+<li>for list, don't use a+=b, it's sometimes different with a=a+b!<br>
+if I execute:<br>
+c=a<br>
+a=a+b gives a new list to a, so c is the same as original a, which does't change, but weirdly, a+=b will change c because maybe this statement just doesn't assign a with a new address. (content in lecture 16 Q&amp;A)<br>
+(Note: I skip lab05 fun questions)</li>
+</ol>
+<h3 id="1230-do-homework-lab">12.30 [do homework &amp; lab]</h3>
+<ol>
+<li>h=float('inf') #Python's version of infinity</li>
+<li>Judge sth's type: if type(w) == list</li>
+<li>format example in Python : return '{0} to {1}'.format(lower_bound(x), upper_bound(x))</li>
+<li>list insert:  lst.insert(0, 9). After this statement, lst[0]=9 and all elements are moved backwards.</li>
+<li>A new method for list insert in fori statement in lab06 Q4</li>
+</ol>
+<h3 id="12-lecture-17lecture-18">1.2 Lecture 17+Lecture 18</h3>
+<ol>
+<li>iter and next:</li>
+</ol>
+<pre><code class="language-python">&gt;&gt;&gt;s=[3,4,5]
+&gt;&gt;&gt;t=iter(s)
+&gt;&gt;&gt;next(t)
+3
+&gt;&gt;&gt;next(t)
+4
+&gt;&gt;&gt;list(t)
+[5]
+&gt;&gt;&gt;next(t)
+Error!!!
+</code></pre>
+<ol start="2">
+<li>Different Objects that can be put into iter(). The order of items in a dictionary is the order in which they were added (Python 3.6+)</li>
+<li>If list appends some elements after it's itered, it's okay to call next(t). However if you change the size of dictionary, the former-created iter cannot be used again. If you just change the values, the iter is still valid.</li>
+<li>If d is a dictionary. d(=keys()), d.keys(), d.values(), d.items(return a two-element tuple) are all iterable.</li>
+<li>If you call next(), the elements in iter will be consumed. For example, the elements used will not appear in for statement, also elements being used in for statement will not appear again, They're consumed. Conversely, things like range(3,6) will not be consumed. That's to say, if r=range(3,6), you can use it over and over again.</li>
+<li>Built-in Functions for Iteration: map(func,iterable),filter(func,iterable),<br>
+reversed(sequence), zip(iter1,iter2) [iterate over co-indexed(x,y)pairs]</li>
+<li>Go thru contents of an iterable: list(), tuple(), sorted()</li>
+<li>Function for class: getattr/hasattr(object_name, attribute) [attribute is a String]</li>
+<li>Generators and Yield statement</li>
+</ol>
+<p><a href="http://composingprograms.com/pages/42-implicit-sequences.html">Documentation About Iterable and Generators</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://hyle33ies.github.io/tag/EsFMHa1fv/" class="tag">
+                    CSlearning_diary
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://hyle33ies.github.io/post/about-me/">
+                  <h3 class="post-title">
+                    About Me
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

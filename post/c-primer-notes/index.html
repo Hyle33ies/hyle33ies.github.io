@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>C++ Primer Notes (Part 1) | hyle33ies&#39; coding home~</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://hyle33ies.github.io/favicon.ico?v=1676192243856">
+<link rel="stylesheet" href="https://hyle33ies.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="写在前面：关于本书与笔记
+
+
+开始阅读时间：2023.1.14
+
+
+阅读完成时间（第一部分）：2023.2.4
+
+
+对应科目：CSC3002 (Introduction to Computer Science:
+Programming Pa..." />
+    <meta name="keywords" content="CSlearning_diary" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://hyle33ies.github.io">
+        <img src="https://hyle33ies.github.io/images/avatar.png?v=1676192243856" class="site-logo">
+        <h1 class="site-title">hyle33ies&#39; coding home~</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://hyle33ies.github.io" class="site-nav">
+            Home Page
+          </a>
+        
+      
+        
+          <a href="https://hyle33ies.github.io/post/about-me" class="site-nav">
+            About Me
+          </a>
+        
+      
+        
+          <a href="https://hyle33ies.github.io/archives" class="site-nav">
+            Archives
+          </a>
+        
+      
+        
+          <a href="https://hyle33ies.github.io/tags" class="site-nav">
+            Tags
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      An ordinary CS Student, keep learning.
+    </div>
+    <div class="site-footer">
+      Acknowledgement: <a href="https://github.com/getgridea/gridea" target="_blank">Gridea&nbsp</a> <a href="https://github.com/imhanjie/gridea-theme-pure">Theme</a>  | <a class="rss" href="https://hyle33ies.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">C++ Primer Notes (Part 1)</h2>
+            <div class="post-date">2023-01-23</div>
+            
+            <div class="post-content" v-pre>
+              <h3 id="写在前面关于本书与笔记">写在前面：关于本书与笔记</h3>
+<ol>
+<li>
+<p>开始阅读时间：2023.1.14</p>
+</li>
+<li>
+<p>阅读完成时间（第一部分）：2023.2.4</p>
+</li>
+<li>
+<p>对应科目：CSC3002 (Introduction to Computer Science:</p>
+<p>Programming Paradigms) (Not Official Reference or Textbook)</p>
+</li>
+<li>
+<p>书籍信息：</p>
+<ol>
+<li>ISBN：978-7-121-15535-2</li>
+<li>第五版，2013年9月版，2018年6月第18次印刷</li>
+<li>编程语言版本：C++11</li>
+<li>书本语言：中文</li>
+</ol>
+</li>
+<li>
+<p>个人体验：</p>
+<ul>
+<li>笔记只记录自己（之前已经有竞赛经历）作为计算机专业学生系统学习C++这门语言的查漏补缺，并不是完整笔记（个人认为前面几章只有60%内容，后面几章可能更加完整）。</li>
+<li>个人认为中文翻译版本仍有许多漏洞（包括一些翻译错误），仍然建议看原版（电子工业出版社也有出版，并不会像原版书一样贵）。</li>
+<li>优点之一是如果提到了之前的知识点会标出来页码，很有利于复习。</li>
+<li>第二章中指针和const结合那一段非常难，需要借助其他资料，不过其实弄不懂也不会特别影响。</li>
+<li>真的很难，所以看完第一部分之后决定停一停，再做一遍之前的习题+开一本《C++程序设计语言》打基础+适当看一看3002学校指定的Stanford课本(2.4)......</li>
+</ul>
+</li>
+</ol>
+<h3 id="chapter-1-开始">Chapter 1 开始</h3>
+<ol>
+<li>
+<p>读入不知道数量的若干输入，一直读入至文件尾 (end-of-file)</p>
+<pre><code class="language-c++">while (std::cin &gt;&gt; value)
+    sum += value;
+</code></pre>
+</li>
+<li>
+<p><strong>iostream</strong>库包含istream and ostream两个基本类型。std::cout &lt;&lt; &quot;sss&quot;的结果是ostream，与运算符左边类型相同，istream同理。</p>
+</li>
+</ol>
+<h3 id="chapter-2-变量和基本类型">Chapter 2 变量和基本类型</h3>
+<ol>
+<li>
+<p>数值大小超过了int时，使用long long (规定为至少64位)而不是long。算术表达式中不要使用char和bool，char (8bit)有三种，char, signed char, unsigned char (0-255)，在不同的机器中char可以是后两种中的任何一种，因此如果需要使用一个不大的整数，明确指定它的类型为后两种中的一种。</p>
+</li>
+<li>
+<p>浮点数用double，有的时候它的计算甚至比单精度更快，long double一般情况下不需要，代价也比较大。</p>
+</li>
+<li>
+<p>赋值的时候把小数赋值给了int，小数部分会被自动截掉。</p>
+</li>
+<li>
+<p>以(1)中的unsigned char (0-255)为例，如果赋予了它取值范围之外的值则会对其表示的数值总数(256)取余，如赋予-1，则其储存255。</p>
+</li>
+<li>
+<p>较大整数赋给浮点类型的时候可能有精度损失。</p>
+</li>
+<li>
+<p>对于无符号数，需要注意：</p>
+<ol>
+<li>其参与运算时会自动把参与运算的负数取余（同(4)）中方式</li>
+<li>注意不要用于for循环，unsigned类型i&gt;=0可能永远不成立(i-1若小于0会自动取余变成最大数)</li>
+</ol>
+</li>
+<li>
+<p>在C++中，0开头为8进制，0x或0X开头为16进制，e和E都可以用于科学计数法</p>
+</li>
+<li>
+<p>字符串的字面值实际上是一个由常量字符构成的数组，编译器会在每个字符串结尾处添加一个空字符('\0')，其字面值长度比实际内容多1。</p>
+</li>
+<li>
+<p>指定字面值的类型：</p>
+<ol>
+<li>42ULL无符号整型</li>
+<li>42LL(long long or unsigned long long)</li>
+<li>1E-3F单精度浮点型(float)</li>
+<li>3.14159L扩展精度浮点型字面值(long double)，L也可以表示long</li>
+<li>u/U unsigned, 如果后缀为u/U，八进制、十进制、十六进制数都将从unsigned int/long/long long中选择能匹配的空间最小的一个作为数据类型。</li>
+<li>综合be，UL为后缀，数据类型将根据具体数值情况取unsigned long或者unsigned long long</li>
+</ol>
+</li>
+<li>
+<p>默认初始化：在所有函数体之外定义的变量初始化为0，否则是<strong>不被初始化</strong>(uninitialized) [个人感觉应该译为<strong>未被初始化</strong>]，此时访问会引发错误。</p>
+</li>
+<li>
+<p>C++支持<strong>分离式编译 (separate compilation)</strong>, 如果在一个程序内需要使用另一个地方定义的名字则可以用关键字extern声明而不显式地定义，<a href="https://zhuanlan.zhihu.com/p/423263090">相关知乎专栏</a></p>
+</li>
+<li>
+<p>C++是一种<strong>静态类型 (statically typed)</strong> 语言，即在编译阶段检查类型。</p>
+</li>
+<li>
+<p>引用（相当于<strong>别名</strong>，一旦绑定无法更改，类型必须匹配，而且不能与常数/表达式计算结果绑定）：</p>
+<pre><code class="language-C++">int ival = 1024;
+int &amp;refVal = ival; // refVal指向ival
+int &amp;refVal2; //报错，引用必须被初始化
+</code></pre>
+</li>
+<li>
+<p>**指针(pointer)**相对引用有许多优点，它本身就是一个对象，可以赋值与拷贝，在生命周期内可以先后指向几个不同的对象，无需在定义时赋初值</p>
+<ol>
+<li>
+<p>获取对象地址。</p>
+<pre><code class="language-C++">int ival = 42;
+int *p = &amp;ival; //p存放变量ival的地址，或者说p是指向变量ival的指针，这一行的int代表指向int型对象的指针
+</code></pre>
+</li>
+<li>
+<p>利用指针访问对象</p>
+<pre><code class="language-c++">int i = 42;
+int *p = &amp;i;
+cout &lt;&lt; *p; //由符号*得到指针p所指的对象，输出42
+*p = 0;//同上，把i赋值为0
+cout &lt;&lt; *p; //输出0
+</code></pre>
+<p>其中解引用符*只适用于确实指向了某个对象的有效指针。在C++中指针的值（地址）可以指向：对象；紧邻对象所占空间的下一个位置；空指针；无效指针。</p>
+</li>
+<li>
+<p><strong>空指针(null pointer)</strong>。</p>
+<pre><code class="language-c++">int *p1 = nullptr;
+int *p2 = 0;
+int *p3 = NULL;//需要include cstdlib库
+</code></pre>
+<p>NULL为一个<strong>预处理变量(preprocessor variable)</strong>，不属于命名空间std，所以不用加std::。在使用预处理变量的时候，预处理器会自动把它替换为实际值，在这里就是0，不推荐使用，最好的应该是nullptr。</p>
+</li>
+<li>
+<p>初始化所有指针，如果不知道就初始化为0或者nullptr</p>
+</li>
+<li>
+<p>区分下面两句</p>
+<pre><code class="language-C++">pi = &amp;ival; //pi的值被改变，pi现在指向ival
+*pi = 0; //ival的值被改变，指针pi并没有改变
+</code></pre>
+</li>
+</ol>
+</li>
+<li>
+<p>一个很蠢的写法：int* p1, p2;这导致p1是指向int的指针，p2就是int。</p>
+</li>
+<li>
+<p>const如果要在多文件内使用：</p>
+<pre><code class="language-c++">//file_1.cc定义并初始化一个常量，它可以被其他文件访问
+extern const int bufSize = fcn();
+//file_1.h头文件
+extern const int bufSize;//和上面那个是同一个
+//这种写法（无论声明还是定义，在前面加extern）针对程序包含多个文件
+</code></pre>
+</li>
+<li>
+<p>如果要引用一个常量，指针也要是常量（用const修饰），而且无法修改常量值。</p>
+</li>
+<li>
+<p>const指针，指的是指向的东西不变，不代表指向对象的内容不变。</p>
+<pre><code class="language-C++">int i = 0;
+int *const curI = &amp;i;//curI将一直指向i
+//一样东西的性质可以从右往左读，const curI说明它本身是一个常量，然后是*说明它是一个常量指针，int表示这个常量指针指向的是一个int对象
+</code></pre>
+</li>
+<li>
+<p>两个概念：<strong>顶层(top-level) const</strong>表示指针本身是个常量，<strong>底层(low-level) const</strong>表示所指的对象是一个常量。更一般的，顶层const可以表示任意对象是常量。</p>
+</li>
+<li>
+<p>constexpr变量，C++11开始可以使用它，由编译器来验证变量的值是否是一个常量表达式。声明constexpr必须要是一个<strong>字面值类型(literal type)</strong>，算术类型、引用、指针都可以，自定义类，IO库，string就不行：</p>
+<pre><code class="language-C++">constexpr int mf = 20;//正确，20是常量表达式
+constexpr int limit = mf + 1; //正确
+constexpr int sz = size(); //只有当size是一个constexpr函数时才是正确的
+</code></pre>
+</li>
+<li>
+<p>在20中提到可以用constexpr定义引用和指针，其中，指针的初始值必须是nullptr或者0，或者存储于某个固定地址中的对象（定义于函数体外，因为定义在函数体内的变量一般不会在固定地址中）。constexpr只对指针有效，与指针所指对象无关。</p>
+<pre><code class="language-C++">constexpr int i = 42;
+int j = 0;
+constexpr const int *p = &amp;i;
+constexpr int *p1 = &amp;j;
+//上述代码都是合法的
+</code></pre>
+</li>
+<li>
+<p><strong>类型别名(type alias)</strong> typedef double wages; 所有使用double类型的地方都可以用wages代替，typedef wages base, p*; 这句话即base是double的同义词，p是double*的同义词（应该用不到）。另外一种写法<strong>别名声明(alias declaration)</strong>：using SI = Sales_item; // SI是Sales_item的同义词</p>
+</li>
+<li>
+<p><strong>auto</strong>类型说明符：</p>
+<pre><code class="language-C++">auto item = val1 + val2; //item初始化为val1，val2相加的结果，编译器会自动推断类型
+auto i = 0, p = &amp;i; //正确，i是整数，p是整型指针
+auto sz = 0, pi = 3.14; //错误，sz和pi类型不一致
+</code></pre>
+</li>
+<li>
+<p>书本P62详细描述了auto忽略顶层const保留底层const的特性，不做详述。</p>
+</li>
+<li>
+<p><strong>decltype类型指示符</strong></p>
+<pre><code class="language-C++">decltype(f()) sum = x;//sum的类型是f的返回类型，编译器会分析得到，但是不会计算f()的值，即不会实际调用。
+const int ci = 0, &amp;cj = ci;
+decltype(ci) x = 0; //x是const int
+decltype(cj) y = x; //y是const int&amp;（引用），y绑定到变量x
+decltype(cj) z; //错误，z是一个引用，必须初始化
+</code></pre>
+<pre><code class="language-C++">int i = 42, *p = &amp;i, &amp;r = i;
+decltype(r+0) b;//正确：加法的结果是int
+//在这里r是一个引用，所以decltype(r)的结果也是一个引用类型，如果要使结果类型是r所指的类型可以把r作为表达式的一部分，如r+0，显然结果是一个具体值而非一个引用
+decltype(*p) c;//错误，c是int&amp;，必须初始化
+//这里表达式是一个解引用操作，decltype得到引用类型。
+//解引用得到指针所指的对象，还能给这个对象复制，因此，上面decltype(*p)的结果是int&amp;而非int
+decltype((i)) d; //错误，d是int&amp;，必须初始化
+//这里加上了一层括号，编译器把它当成一个表达式，会得到引用类型（原因尚未理解）
+</code></pre>
+</li>
+<li>
+<p>定义：预处理器，头文件保护符(header guard)，#ifndef，#define，#endif</p>
+</li>
+</ol>
+<h3 id="chapter-3-字符串-向量和数组">Chapter 3 字符串、向量和数组</h3>
+<ol>
+<li>
+<p>using声明</p>
+<pre><code class="language-C++">using namespace::name;//格式
+using std::cin;
+using std::cout; using std::endl; //都需要独立的using声明
+</code></pre>
+<p>一般来说，头文件不应包含using声明</p>
+</li>
+<li>
+<p>string基础</p>
+<pre><code class="language-C++">#include &lt;string&gt;
+using std::string;
+//引入
+string s1;
+string s2 = s1;//s2是s1的副本
+string s3(5, 'c');//s3内容为ccccc
+string s4(&quot;value&quot;);//和初始化赋值一样
+</code></pre>
+<pre><code class="language-C++">string s;
+cin &gt;&gt; s;//读入忽略开头空白（也包括制表符、换行符）遇到空白停止
+string s1, s2;
+cin &gt;&gt; s1 &gt;&gt; s2;
+string word;
+while (cin &gt;&gt; word)
+	cout &lt;&lt; word &lt;&lt; endl; //读入未知数量的string对象
+string line;
+while (getline(cin, line))
+	cout &lt;&lt; line &lt;&lt; endl;//line不包含换行符
+//用getline读取一整行，会读取换行符，但是不会加入字符串中
+//所以如果是一个空行就会读到一个空字符串，不包括回车符
+//对于上面的line,有函数line.empty()和line.size()
+auto len = line.size(); //len的类型是string::size_type
+// size_type是一个无符号数，所以在表达式中不要与int混用
+string s3 = &quot;hello&quot; + &quot;, &quot;;//这句是不合法的
+//字符串相加的时候必须有一个要是字符串对象，不能都是字面值
+//只有一个字面值的时候标准库可以把字符/字符串字面值转换为string对象
+//但是为了与C兼容，C++字符串字面值并不是string的对象，而是char数组（见36页）
+</code></pre>
+<pre><code class="language-C++">在cctype头文件中有许多处理某个字符特性的函数，如:
+isalnum(c) //c为字母或数字
+isalpha(c) //c为字母
+ispunct(c) //c为标点符号
+isxdigit(c) //16进制数
+isspace(c) //空白
+tolower/upper(c)//输出对应小/大写，如果不是大/小写则原样输出
+</code></pre>
+<pre><code class="language-C++">//用for改变字符串中的字符：
+string s(&quot;Hello World!!!&quot;);
+for (auto &amp;c : s)
+    c = toupper(c);
+cout &lt;&lt; s &lt;&lt; endl;
+//使用下标执行迭代
+for (decltype(s.size())index = 0; index!=s.size()
+    &amp;&amp; !isspace(s[index]); ++index)
+    s[index] = toupper(s[index]);//也会改变s
+//这里用s.size()的类型可以保证其非负，所以使用的时候保证&lt;size即可
+</code></pre>
+</li>
+<li>
+<p>vector基础</p>
+<pre><code class="language-C++">//定义与初始化
+vector&lt;T&gt; v1;
+vector&lt;T&gt; v2(v1); //和v2 = v1一样
+vector&lt;T&gt; v3(n, val); //同string，内含n个元素，都是val
+vector&lt;T&gt; v4{a,b,c};//和v4={a,b,c}一样
+vector&lt;T&gt; v5(n); //n个元素，都是默认初始化的值（有些对象不提供，那么不能用
+</code></pre>
+<pre><code class="language-C++">//放入元素：
+vector.push_back(element)
+//如果在循环体内部改变其遍历序列的大小，则不要用范围for循环
+//一些vector操作
+v.empty(),v.size(),v[n],v1==v2(当且只当元素数量相同+对应位置的元素值都相同)，&gt;,&gt;=等（以字典顺序比较）
+//可以使用下标，但是只能对已经存在元素执行！(不然要用push_back)
+//和string一样，vector的size返回vector中元素的个数，类型是vector定义的size_type
+//使用vector中的size_type需要指定它是哪种类型定义的
+//vector&lt;int&gt;::size_type为合法写法，省略&lt;int&gt;就不行
+</code></pre>
+</li>
+<li>
+<p>迭代器基础：</p>
+<pre><code class="language-C++">s.begin()/end()：可迭代对象的第一个的位置/最后一个之后的位置
+*iter返回迭代器所指元素的引用
+++iter表示容器内下一个元素
+--iter表示上一个
+vector&lt;int&gt;::iterator it;//it能读写vector&lt;int&gt;的元素
+vector&lt;int&gt;::const_iterator it2;//能读不能写
+auto it3 = v.cbegin();
+//默认使用begin()和end()返回值为iterator还是const_iterator由其指向元素的容器是否为常量决定，而C++11中cbegin和cend只返回const_iterator，使得此迭代器无法修改容器中元素值
+(*it).empty()
+//解引用之后可以直接使用用于访问成员
+//注意这里的括号不可以省略
+it-&gt;empty()
+//这一句使用了箭头运算符，效果和上一句一样，更加简便
+//若往迭代器所属的容器添加元素，则迭代器失效(同python)
+</code></pre>
+</li>
+<li>
+<p>迭代器运算：</p>
+<pre><code class="language-C++">//对于任何迭代器，递增，==，!=对任意标准库类型的迭代器都有效
+//而对于vector和string迭代器，还有以下运算被支持：
+iter+n;iter-n;iter+=n;iter-=n;
+iter1-iter2;//二者必须对应同一容器，返回指向位置的距离
+//返回值为difference_type，是有符号的
+&gt;,&gt;=,&lt;,&lt;=//同上，必须指向同一容器
+</code></pre>
+</li>
+<li>
+<p>数组基础</p>
+<ol>
+<li>
+<p>数组的元素应为对象，和vector一样，不能是引用</p>
+</li>
+<li>
+<p>数组的维度（a[d]中的d）必须是常量表达式</p>
+</li>
+<li>
+<p>显式初始化数组元素时维度可以不填，系统会自动推断</p>
+</li>
+<li>
+<p>数组类型不可以通过auto推断</p>
+</li>
+<li>
+<p>对于c，如果维度填了而且比显式提供的元素多，那么剩下的初始化为默认值</p>
+</li>
+<li>
+<p>字符数组的特殊性</p>
+<pre><code class="language-c++">char a1[]={'C','+','+'};//列表初始化，没有空字符
+char a2[]={'C','+','+','\0'};//列表初始化，显式的空字符
+char a3[]=&quot;C++&quot;;//会自动添加空字符表示字符串结束
+const char a4[6]=&quot;Daniel&quot;//错误，空字符没位置了
+</code></pre>
+</li>
+<li>
+<p>数组不允许拷贝与赋值，不能用一个数组初始化另一个数组，不能把一个数组直接赋值给另一个数组</p>
+</li>
+<li>
+<p>3.5.1中“理解复杂的数组声明”我直接跳过</p>
+</li>
+</ol>
+</li>
+<li>
+<p>数组与指针：</p>
+<pre><code class="language-C++">string *p = &amp;nums[0];//p指向nums的第一个元素
+string *p = nums;//与上面一句等价
+//
+auto ia1(ia);//当数组作为一个auto变量的初始值时，推断得到的类型是一个指针而非数组，ia1是一个整型指针，指向ia第一个元素
+auto ia1(&amp;ia[0]);//和上一句一样
+</code></pre>
+<p>指向数组元素的指针拥有更多支持，vector和string的迭代器支持的运算，数组的指针全部支持。比如：</p>
+<pre><code class="language-C++">int *p = arr;//p指向arr的第一个元素
+++p;//p指向arr[1]
+int *e = &amp;arr[10];//此例中arr下标为0~9，在这里e指向arr尾元素的下一位置，不能再对其解引用、递增
+//综合上面的定义，我们可以用指针写出以下代码遍历输出数组
+for (int *b = arr; b != e; ++b)
+    cout &lt;&lt; *b &lt;&lt;endl;
+</code></pre>
+<p>标准库函数begin和end：</p>
+<pre><code class="language-C++">int *beg = begin(ia); //指向ia数组首元素的指针
+int *last = end(ia); //尾元素下一位置
+//这两个函数定义在iterator头文件中
+</code></pre>
+<p>指针运算与迭代器运算意义上完全一致：</p>
+<pre><code class="language-C++">constexpr size_t sz = 5;
+int arr[sz] = {1, 2, 3, 4, 5};
+int *ip = arr; //等价于int *ip = &amp;arr[0]
+int *ip = arr + sz; //arr自动转换为&amp;arr[0]
+int *p2 = arr + 10; //错误，编译时编译器一般无法发现
+auto n = end(arr) - begin(arr);//n为5，即元素数量
+//n的类型为ptrdiff_t，定义在cstddef头文件中，带符号类型
+//
+int ia[] = {0, 2, 4, 6, 8};
+int last = *(ia + 4); //last初始化成8，也就是ia[4]的值，注意，这与*ia + 4（结果为4）不同
+int i = ia[2]; //本质上是ia转换为指向数组首元素的指针，ia[2]得到ia+2所指的元素
+int *p = ia; //p指向ia首元素
+i = *(p+2); //12和13两句相当于把第11行代码拆开了
+//下面是一个冷僻方法
+int *p = &amp;ia[2]; //p指向索引为2的元素
+int j = p[1]; //p[1]等价为*(p+1),也就是ia[3]表示的元素
+int k = p[-2]; //p[-2]是ia[0]表示的那个元素
+//这里是下标运算是内置的下标运算，不一定是无符号的
+//这和vector和string不同，这两个标准库类型限定使用的下标必须是无符号类型
+</code></pre>
+</li>
+<li>
+<p>*C风格字符串（最好不要使用，会引发程序漏洞，造成安全问题</p>
+<pre><code class="language-C++">//以下函数定义在cstring头文件中
+strlen(p) 返回p的长度，空字符不计算
+strcmp(p1, p2) 相等为0，p1&gt;p2为正，p1&lt;p2为负
+strcat(p1, p2) 把p2附加到p1之后，返回p1
+strcpy(p1, p2) 把p2拷贝给p1，返回p1
+这些函数不负责验证其字符串参数，传入的字符串必须以空字符结尾
+比如以下字符串就不行
+char ca[] = {'C', '+', '+'};
+cout &lt;&lt; strlen(ca) &lt;&lt; endl;//ca没有以空字符结束，错误
+</code></pre>
+<pre><code class="language-C++">//无法使用和string一样的方法比较C风格字符串，直接比较两个char[]实际在比较两个无关地址，这是未定义的
+const char c1[] = &quot;xxx&quot;;
+const char c2[] = &quot;yyy&quot;;
+c1 &lt; c2
+// 使用数组名的时候实际上用的是指向数组首元素的指针，所以上面这个布尔表达式实际上比较的是两个const char*的值，这两个指针指向的并非同一个对象，所以得到未定义的结果
+// 在这里，我们需要使用strcmp()函数
+</code></pre>
+<pre><code class="language-C++">对于C风格字符串，我们不能使用string的字符串拼接方法，而要使用上面的strcpy和strcat，因此得到结果需要一个字符数组来存放，而这个数组必须足够大，因此充满了安全风险，因为我们在一开始无法估准其大小。
+strcpy(largeStr, ca1);
+strcat(largeStr, &quot; &quot;);
+strcat(largeStr, ca2);
+//一般情况下，用string比C风格字符串更加安全、高效
+</code></pre>
+</li>
+<li>
+<p>为了与C风格字符串的代码衔接，C++提供了一组功能：</p>
+<pre><code class="language-C++">//混用string与C风格字符串
+string s(&quot;hello World!!&quot;);
+//更一般的，允许使用以空字符结束的字符数组来初始化string对象或为string对象赋值，也允许在string的+运算中的一个运算对象/复合赋值运算中右侧 出现以空字符结束的字符数组，反之不成立
+char *str = s; //错误，不能用string初始化char*
+const char *str = s.c_str(); //正确，此指针无法改变字符数组的内容
+//在这里，c_str函数返回一个C风格的字符串，如果之后改变了s，这里的指针会失去效用，如果想一直使用一开始的数组，最好拷贝一份
+</code></pre>
+</li>
+<li>
+<p>用数组初始化vector（用数组不能初始化数组，用vector不能初始化数组），只需指明拷贝区域的首元素地址和尾后地址</p>
+</li>
+</ol>
+<pre><code class="language-C++">int int_arr[] = {0, 1, 2, 3, 4, 5};
+vector&lt;int&gt; subVec(int_arr+1, int_arr+4);//拷贝了1~3
+vector&lt;int&gt; ivec(begin(int_arr), end(int_arr));//拷贝整个数组
+</code></pre>
+<ol start="11">
+<li>
+<p>多维数组</p>
+<pre><code class="language-C++">int arr[10][20] = {0};//所有元素初始化为0
+int ia[3][4] = {
+    {0, 1, 2, 3},
+    {4, 5, 6, 7},
+    {8, 9, 10, 11}
+};
+int ib[2][3] = {0, 1, 2, 3, 4, 5};
+//上述两种（有无内层嵌套的花括号）都可以
+int ic[3][4] = {{0},{4},{8}};//显式地初始化每行的首元素
+int id[3][4] = {0, 3, 6, 9};//显式初始化第一行
+</code></pre>
+<pre><code class="language-C++">int ia[3][4];
+size_t cnt = 0;
+for (auto &amp;row : ia)
+	for (auto &amp;col : row){
+		col = cnt;
+		++cnt;
+	}
+//C++11新标准的范围for语句，这个程序可以实现ia[i][j] = i*column + J;
+//用范围for处理多维数组，除了最内层的循环，其他所有循环的控制变量都应为引用类型，否则循环时控制变量会被编译器处理为指向数组首元素的指针，内层的循环就不合法了
+for (const auto &amp;row : ia)
+    for (auto col : row)
+        cout &lt;&lt; col &lt;&lt; endl;
+//原因如上，虽然没有任何“写”操作，外层循环的控制变量依然需要是引用类型
+</code></pre>
+</li>
+<li>
+<p>指针与多维数组：</p>
+<pre><code class="language-C++">int ia[3][4];
+int (*p)[4] = ia;
+//p是一个指针，其指向一个维度为4的数组，数组的元素为整型；由多维数组名转换得来的指针实际上是指向第一个内层数组的指针，所以p是一个指向数组的指针，一开始指向ia[0]
+p = &amp;ia[2];
+</code></pre>
+<pre><code class="language-C++">for (auto p = ia; p != ia + 3; ++p){
+	for (auto q = *p; q!= *p + 4; ++q)
+		cout &lt;&lt; *q &lt;&lt; ' ';
+	cout &lt;&lt; endl;
+} //在C++11中，由于可以用auto和decltype，我们可以避免在数组前面加上一个指针类型（auto自动推断p为一个指针）
+// 内层循环中，*p是一个含有4个元素的数组，因此q一开始指向数组的首元素
+for (auto p = begin(ia); p != end(ia); ++p){
+    for (auto q = begin(*p); q != end(*p); ++q)
+        cout &lt;&lt; *q &lt;&lt; ' ';
+    cout &lt;&lt; endl;
+}
+//使用标准库函数begin和end(在iterator头文件中)更加简洁
+</code></pre>
+</li>
+</ol>
+<h3 id="chapter-4-表达式">Chapter 4 表达式</h3>
+<ol>
+<li>
+<p>在一个表达式中不同运算符修改了同一个对象会引发错误产生未定义的行为（如cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;++i&lt;&lt;endl;），有多个运算对象为函数不管优先级、结合律，其求值顺序无法确定，如f()+g()*h()+j()，如果它们既不改变同一对象的状态也不执行IO任务，那么无所谓；否则这条表达式是错误的。在表达式中如果改变了某个对象的值，不要再在表达式的其他地方使用这个运算对象，特例：*++iter，先自增iter，再解引用，这是一个正确的常见用法。</p>
+</li>
+<li>
+<p>除法运算中，运算对象符号相同商为正，否则为负，C++11规定结果向0取整（即砍小数部分）。</p>
+</li>
+<li>
+<p>在取余运算中，(m/n)*n+m%n==n，如果m%n不为0，则其符号与m相同。</p>
+</li>
+<li>
+<p>如果在范围for中对象可能很大，则可以用引用来避免拷贝，比如以下语句打印vector中的string对象：</p>
+<pre><code class="language-C++">for (const auto &amp;s : text)
+//&amp;s 避免了拷贝text中的字符串，同时只需要打印，所以声明为const防止意外的修改
+</code></pre>
+</li>
+<li>
+<p>C++不支持关系运算符链表示范围，如(i&lt;j&lt;k)实际上拿i&lt;j的布尔值与k比较。</p>
+</li>
+<li>
+<p>有的时候 val与val==true并不一样，如果val为整数，前者只要不为0就是true，后者只有val为1时才为true。</p>
+</li>
+<li>
+<p>赋值运算满足右结合律</p>
+<pre><code class="language-C++">int ival, jval;
+ival = jval = 0;//正确，都被赋值为0
+</code></pre>
+<p>对于多重赋值中的每一个对象，其类型应与右边对象相同或可由右边对象的类型转换得到：</p>
+<pre><code class="language-C++">int ival, *pval;
+ival = pval = 0; //错误，不能把指针的值赋给int
+//注意这一句的理解，指针赋为0是可以的，赋值之后它是空指针
+string s1, s2;
+s1 = s2 = &quot;OK&quot;;
+//这里理解为字符串字面值&quot;OK&quot;转换为string对象
+</code></pre>
+</li>
+<li>
+<p>书中的建议：除非必须，否则不用递增递减运算符的后置版本(i++):</p>
+<p>前置版本避免了不需要的工作，它把值+1之后直接返回改变了的运算对象，而后置版本需要将原始值存储下来以便返回这个未修改的内容，如果未修改的内容不需要，后置版本的操作会产生浪费。</p>
+</li>
+<li>
+<p>复合操作可能比正常操作略快(a=a+b与a+=b)。</p>
+</li>
+<li>
+<p>在8中提到，后置版本的本质是+1后返回未+1的内容，这可以解释1中的特例，也有这种常见的用法：</p>
+<pre><code>auto pbeg = v.begin();
+while (pbeg != v.end() &amp;&amp; *pbeg &gt;= 0)
+	cout &lt;&lt; *pbeg++ &lt;&lt; endl;
+//这样写的优点是简洁，本质上是先自增（递增运算符优先级高于解引用），返回未修改的值。
+</code></pre>
+</li>
+<li>
+<p>解引用运算符优先级低于点运算符：</p>
+<pre><code class="language-C++">string s1 = &quot;a string&quot;, *p = &amp;s1;
+auto n = (*p).size();
+n = p—&gt;size();//这两句等价
+n = *p.size();//这一句错误
+</code></pre>
+</li>
+<li>
+<p>条件运算符（a?b:c)遵循右结合律，借助这个可以嵌套。条件运算符优先级非常低，用于长表达式比如cout输出时要在整体周围加上括号。</p>
+</li>
+<li>
+<p>sizeof运算符：返回一条表达式或一个类型名字所占的字节数，满足右结合律，所得的值是一个size_t类型（机器相关的无符号类型，足够大用于表示内存中任意对象的大小，在cstddef中定义）。sizeof运算符并不实际计算其运算对象的值，比如sizeof  *p，因为其满足右结合律，其等价于sizeof(*p)，即使它是一个无效指针也没事，因为sizeof并不需要真的解引用。</p>
+</li>
+<li>
+<p>sizeof作用于引用类型会得到被引用对象所占空间大小，对指针执行得到指针本身所占空间大小。对数组执行得到整个数组所占空间的大小（不会把数组名理解为指针，这种隐式类型转换在&amp;(取地址符)和typeid中也不会发生），而对string和vector只返回该类型固定部分大小，不会计算其中元素占用的空间。</p>
+</li>
+<li>
+<p>接14，ia为一个数组，通过sizeof获得其大小：sizeof(ia)/sizeof(*ia)。其中*ia表示一个单个元素。sizeof的返回值是一个常量表达式，可以赋给constexpr，可以声明数组的维度。</p>
+</li>
+<li>
+<p>逗号运算符的结果是右侧表达式的值（冷僻知识点）。</p>
+</li>
+<li>
+<p>static_cast:只要不包含底层const就可以使用，比如对整数执行浮点数除法：</p>
+<pre><code class="language-C++">double slope = static_cast&lt;double&gt;(j) / i;
+</code></pre>
+<p>使用显式类型转换的时候，编译器的警告信息就会关闭。</p>
+<p>static_cast对于一些编译器无法自动执行的类型转换也很有用，比如：</p>
+<pre><code class="language-C++">void* p = &amp;d;//任何非常量对象的地址都能存入void*
+double *dp = static_cast&lt;double*&gt;(p);
+</code></pre>
+</li>
+<li>
+<p>const_cast只能改变运算对象的底层const</p>
+<pre><code class="language-C++">const char *pc;
+char *p = const_cast&lt;char*&gt;(pc);
+//正确，不过通过p写值是未定义的行为
+</code></pre>
+<p>这里将常量对象转换为非常量，这叫去掉const性质(cast away the const).不能使用const_cast改变表达式的类型，它只能用于改变常量属性。</p>
+</li>
+<li>
+<p>早期版本的C++语言中也有两种形式的强制类型转换</p>
+<pre><code class="language-C++">type (expr) //函数形式
+(type) expr //C语言风格
+</code></pre>
+<p>这种形式虽然方便，但是表现形式不那么清晰了，出现问题更加难以追踪。</p>
+</li>
+<li>
+<p>运算符优先级表(p147-148)：*/%同级；加法减法&gt;移位&gt;条件运算符(大于小于)&gt;相等与不等&gt;逻辑运算符&gt;赋值/复合赋值&gt;逗号运算符</p>
+</li>
+</ol>
+<h3 id="chapter-5-语句">Chapter 5 语句</h3>
+<ol>
+<li>
+<p>在for语句中的init-statement里可以定义多个对象，但是只能有一条声明语句，因此所有变量的基础类型必须相同。</p>
+</li>
+<li>
+<p>goto语句：跳转到同一函数的另一条语句。注意点：</p>
+<ol>
+<li>
+<p>同一函数</p>
+</li>
+<li>
+<p>标签标识符独立于变量或其他标识符的名字，不互相干扰</p>
+</li>
+<li>
+<p>不能跳过带初始化的变量定义然后在后面使用该变量</p>
+</li>
+<li>
+<p>往前跳到了变量定义之前会导致系统销毁该变量，之后重新创建它</p>
+</li>
+<li>
+<p>本书作者不建议使用goto语句</p>
+<pre><code class="language-C++">begin://标识符+冒号
+	int sz = get_size();
+    if (sz &lt;= 0){
+    	goto begin;
+    }
+    //用循环写其实更好
+</code></pre>
+</li>
+</ol>
+</li>
+<li>
+<p>C++中的异常处理：</p>
+<pre><code class="language-C++">try {
+    program-statements
+} catch (exception-declaration) {
+    handler-statements
+} catch (exception-declaration) {
+    handler-statements
+}
+</code></pre>
+<p>在exception-declaration中可以像定义变量一样给出异常的对象名，如runtime_error err。这里的err类型就是runtime_error，err.what()是类的一个成员函数，没有参数，返回一个C风格字符串（const char*）</p>
+</li>
+<li>
+<p>一些异常，注意：exception,bad_alloc和bad_cast对象不能提供初始值，只能默认初始化，其他的异常只能提供初始值，不允许默认初始化。<img src="https://s1.imagehub.cc/images/2023/01/23/6007468c77365542c9db43c2265c1061.png" alt="image-20230123223400936" loading="lazy"></p>
+</li>
+</ol>
+<h3 id="chapter-6-函数">Chapter 6 函数</h3>
+<ol>
+<li>
+<p>局部静态对象：在程序执行路径第一次经过对象定义语句时初始化，直到程序终止时才销毁，在其之前加个static即可。</p>
+</li>
+<li>
+<p>函数原型中形参的名字可以省略。</p>
+</li>
+<li>
+<p><strong>分离式编译(separate compilation)</strong><a href="https://www.cnblogs.com/HDK2016/p/10591690.html">相关链接</a></p>
+</li>
+<li>
+<p>指针形参与其他非引用类型一样，传参拷贝指针时拷贝的是指针的值，拷贝之后两个指针是不同的指针。</p>
+</li>
+<li>
+<p>当函数无需修改引用形参的值时最好使用常量引用，这样可以避免拷贝（有些类类型包括IO类型不支持拷贝）过大的数据类型。</p>
+</li>
+<li>
+<p>当形参是const修饰的时候，函数可以读取该数据但是不能修改，传参的时候传const和非const都可以，但是如果要定义若干名字相同的函数判定形参列表是否有区别的时候const被忽略，也就是</p>
+<pre><code class="language-C++">void fcn(const int i){}
+void fcn(int i){}
+//这两个函数不可以同时定义
+</code></pre>
+</li>
+<li>
+<p>本书建议：尽量使用常量引用。把形参定义成普通引用有时会误导调用者“可以修改它的实参的值”，而且也会限制函数所能接受的实参类型（不能把const对象、字面值或者需要类型转换的对象传给普通的引用形参(比如把无符号实参传给有符号形参)）。比如对于函数string::size_type find_char(string &amp;s, char c, string::size_type &amp;occurs)，第一个string没加const，传入一个具体字面量如&quot;Hello World&quot;的时候就会编译错误。</p>
+</li>
+<li>
+<p>数组形参：前面提到不能拷贝数组，所以如果形参写成数组，它会被转换成一个指针</p>
+<pre><code class="language-C++">void print(const int*);
+void print(const int[]);
+void print(const int[10]);
+//这三个表达是等价的，形参都是const int*
+int i = 0, j[2] = {0, 1};
+print(&amp;i);//正确，&amp;i的类型是int*
+print(j);//正确，j转换为int*并指向j[0]，数组大小没有影响
+</code></pre>
+<p>由于数组是以指针形式传递给函数的，所以一开始函数并不知道数组的确切尺寸，调用者应该提供一些额外的信息，有三种方式：</p>
+<pre><code class="language-C">void print(const char *cp){//C风格字符串自带一个结束标记
+	if(cp)//不是空指针
+		while (*cp)//不是指向空字符（C风格字符串末尾）
+			cout &lt;&lt; *cp++;
+}
+</code></pre>
+<pre><code class="language-C++">//受到标准库技术的启发，传递指向数组首元素和尾后元素的指针
+void print(const int *beg, const int *end){
+	while(beg != end)
+		cout &lt;&lt; *beg++ &lt;&lt; endl;
+}
+int j[2] = {0, 1};
+print(begin(j), end(j));//标准库函数，p106
+</code></pre>
+<pre><code class="language-C++">//显式传递一个表示数组大小的形参
+void print(const int ia[], size_t size){
+	for (size_t i = 0; i != size; ++i){
+		cout &lt;&lt; ia[i] &lt;&lt; endl;
+	}
+}
+int j[] = {0, 1};
+print(j, end(j) - begin(j));
+//只要传的size不超过数组实际大小，函数就是安全的
+</code></pre>
+</li>
+<li>
+<p>数组引用形参</p>
+<pre><code class="language-C++">//重新理解前面跳过的“理解复杂的数组声明”p102-103
+int *ptrs[10]; //ptrs是含有10个整型指针的数组
+//类型修饰符从右向左依次绑定，首先我们定义的是一个大小为10的数组，名字为ptrs，然后知道数组中存放的是指向int的指针
+int &amp;refs[10] = ...//错误：不存在引用的数组
+int (*Parray)[10] = &amp;arr;//Parray指向一个含有十个整数的数组
+//在这里由内向外阅读，*Parray意味着它是一个指针，然后观察右边，知道它是一个指向大小为10的数组的指针，最后观察左边，数组中的元素是int
+int (&amp;arrRef)[10] = arr;//arrRef引用一个含有10个整数的数组
+//理解同上
+//对修饰符的数量并没有特殊限制：
+int *(&amp;arry)[10] = ptrs;
+//arry是一个引用，对象是一个大小为10的数组，数组的元素类型是指向int的指针
+</code></pre>
+<pre><code class="language-C++">f(int &amp;arr[10]) //错误
+f(int (&amp;arr)[10]) //正确，arr是具有10个整数的整型数组的引用
+void print(int (&amp;arr)[10]){
+    for (auto elem : arr)
+        cout &lt;&lt; elem &lt;&lt; endl;
+}
+int i = 0, j[2] = {0, 1};
+int k[10] = {0,1,2,3,4,5,6,7,8,9};
+print(&amp;i);//错误
+print(j);//错误
+print(k);//正确，实参是含有10个整数的数组
+</code></pre>
+</li>
+<li>
+<p>传递多维数组。以二维数组为例，传递的时候真正传递的是指向数组首元素的指针，所以指针是一个指向数组的指针：</p>
+<pre><code class="language-C++">void print(int (*matrix)[10], int rowSize);
+//matrix指向数组的首元素，该数组的元素 是由10个整数构成的数组
+//这里*matrix周围的括号必不可少，否则会变成10个指针构成的数组，这里是指向一个数组（数组含10个整数）的指针！
+//等价定义
+void print(int matrix[][10], int rowSize);
+//编译器会忽略掉第一个维度
+</code></pre>
+</li>
+<li>
+<p>可变形参</p>
+<pre><code class="language-C++">//如果函数的实参数量未知，但是全部实参的类型都相同，我们可以使用initializer_list类型的形参，它是一种标准库类型，用于表示某种特定类型的值的数组。提供的操作：
+initializer_list&lt;T&gt; lst;
+initializer_list&lt;T&gt; lst{a,b,c...};//lst的元素是对应初始值的副本，列表中元素为const
+lst2(lst)
+lst2 = lst//拷贝或赋值一个initializer_list对象不会拷贝列表中的元素，而是共享元素
+lst.size()
+lst.begin()//指针
+lst.end()
+//由于支持begin和end函数，所以遍历可以用标准for(auto beg = l.begin(); beg != l.end(); ++beg)也可以用范围for(const auto &amp;elem : l)
+</code></pre>
+<pre><code class="language-C">//省略符形参
+//用于访问特殊C代码（这些代码使用了C标准库varargs），不要用于其他目的，因为传递时大多数类类型对象无法正确拷贝
+void foo(parm_list, ...);
+void foo(...);
+//parm_list会执行正常的类型检查，省略符形参不检查，第一种形式逗号可以省略
+</code></pre>
+</li>
+<li>
+<p>函数完成之后占用的存储空间也会被释放掉，局部变量的引用也不再指向有效的内存区域。</p>
+<pre><code class="language-C++">const string &amp;shorter(const string &amp;s1, const string &amp;s2){
+	return s1.size() &lt;= s2.size() ? s1 : s2;
+}//形参和返回类型都是const string的引用，不管是调用函数还是返回结果都不会真正拷贝string对象
+//可以接收非常量的string实参，但是返回结果仍然是const string的引用
+</code></pre>
+<pre><code class="language-C++">const string &amp;manip(){//返回值为const &amp;string
+	string ret;
+	if(!ret.empty())
+		return ret;//错误，返回局部对象的引用
+	else
+		return &quot;Empty&quot;;//错误，&quot;Empty&quot;是一个局部临时量
+}
+//不要返回局部对象的引用或者指针！
+</code></pre>
+</li>
+<li>
+<p>引用返回左值</p>
+<pre><code class="language-C++">char &amp;get_val(string &amp;str, string::size_type ix){
+	return str[ix];
+}
+int main(){
+	string s(&quot;a value&quot;);
+	get_val(s, 0) = 'A';
+	cout &lt;&lt; s &lt;&lt; endl;//A value
+	return 0
+}
+</code></pre>
+</li>
+<li>
+<p>列表初始化返回值</p>
+<pre><code class="language-c++">vector&lt;string&gt; process(){
+    ...
+    if (expected.empty())
+        return {};
+    else if (expected == actual)
+        return {&quot;functionX&quot;, &quot;okay&quot;};//列表初始化
+    else
+        return {&quot;functionX&quot;, expected, actual};
+}//返回值是内置类型也可以用花括号，但是里面只能有一个值
+</code></pre>
+</li>
+<li>
+<p>主函数main除了返回0还可以返回cstdlib中的两个预处理变量：EXIT_FAILURE, EXIT_SUCCESS，因为它们是预处理变量，所以既不能加std::也不能在using声明中出现（没看懂这句话的因果关系？）。</p>
+</li>
+<li>
+<p>返回数组指针</p>
+<pre><code class="language-C++">typedef int arrT[10];//arrT是一个类型别名，它表示的类型是一个含有10个整数的数组
+using arrT = int[10];//等价声明
+arrT* func(int i);//func返回一个指向含有10个整数的数组的指针
+</code></pre>
+<pre><code class="language-C++">//要想声明func的时候不使用类型别名，我们必须牢记被定义的名字后面数组的维度
+Type (*function(parameter_list)) [dimension]
+//格式如上
+int (*func(int i))[10];
+//func(int i)表示func函数需要一个int类型实参
+//(*func(int i))意味着我们可以对函数调用的结果执行解引用操作
+//(*func(int i))[10]表示解引用func的调用将得到一个大小是10的数组
+//一整句表示数组中的元素是int类型
+//在C++11中有一种可以简化的方法，即尾置返回类型(trailing return type)，对任何函数都适用
+auto func(int i) -&gt; int(*)[10];
+//清楚多了
+</code></pre>
+</li>
+<li>
+<p>main函数不能重载。</p>
+</li>
+<li>
+<p>重载时只有返回值不同、省略形参名字、使用类型别名、是否使用顶层const（指针本身是常量）都会被视为相同的形参。</p>
+<p>同时，如果形参是某种类型的指针或引用，则通过区分其指向的是常量对象还是非常量对象可以实现函数重载，此时const是底层的（指针指向常量）</p>
+<pre><code class="language-C++">Record lookup(Phone);
+Record lookup(const Phone);//错误，这是重复申明
+Record lookup(Phone*);
+Record lookup(Phone* const);//错误，重复申明
+
+Record lookup(Account&amp;);
+Record lookup(const Account&amp;);//新函数，作用于常量引用
+Record lookup(Account*);
+Record lookup(const Account*);//新函数，作用于指向常量的指针
+//上面这四个是不同的函数
+//const无法转换成其他类型(p144)，所以只能把const对象（或指向const的指针）传递给const形参；相反，非常量可以转换成const，所以上面四个函数都可以作用于非常量对象或指向非常量对象的指针，编译器会优先选用非常量版本的。
+</code></pre>
+<pre><code class="language-C++">//const_cast和重载
+//6.3.2(p201)有一个shorter函数（在本笔记本章第12点），返回值和形参都是const string&amp;，即使对于非常量的string实参调用这个函数，返回的结果也会是const string的引用
+//我们可以新定义一种shorter函数，当实参不是常量的时候，得到的是一个普通引用
+string &amp;shorter(string &amp;s1, string &amp;s2){
+    auto &amp;r = shorter(const_cast&lt;const string&amp;&gt;(s1), const_cast&lt;const string&amp;&gt;(s2));
+    return const_cast&lt;string&amp;&gt;(r);
+}
+</code></pre>
+</li>
+<li>
+<p>对于重载，有多于一个函数可以匹配，但每一个都不是明显的最佳选择，此时也会发生错误，这叫<strong>二义性调用(ambiguous call)</strong></p>
+</li>
+<li>
+<p>如果我们在内层作用域中声明名字，它将隐藏外层作用域中声明的同名实体，在不同作用域中无法重载函数名。</p>
+</li>
+<li>
+<p><strong>默认实参(default argument)</strong>：如果一个形参被赋予了默认值，那么它后面的所有形参都必须有默认值，所以我们也只能省略尾部的实参。只要表达式的类型能转换成形参所需的类型，该表达式就能作为默认实参。</p>
+</li>
+<li>
+<p><strong>内联函数(inline)</strong>：对于之前提到的shorter（返回较短的字符串）这一类比较简单的函数我们可以使用内联函数加速，因为函数调用可能会更加耗费时间，使用内联函数建议编译器用函数体代码本身代替函数调用，主要用于优化规模较小、流程直接、频繁调用的函数，编译器可以忽略这个请求。</p>
+<pre><code class="language-C++">inline const string&amp; shorter(const string &amp;s1, const string &amp;s2);//只需要加上一个inline
+</code></pre>
+</li>
+<li>
+<p><strong>constexpr函数</strong>：返回值类型、所有形参类型都得是字面值类型，函数体中有且只有一条return语句。其被隐式指定为内联函数。constexpr函数体内也可以包含其他语句，只要这些语句不执行任何操作就行，比如空语句，类型别名，using声明。</p>
+<pre><code class="language-C++">//constexpr函数的返回值可以是常量表达式
+constexpr int new_sz(){ return 42;}
+constexpr size_t scale(size_t cnt){
+	return new_sz()*cnt;
+}
+int arr[scale(2)];//正确，scale(2)是一个常量表达式
+int i = 2;//i不是常量表达式
+int a2[scale(i)];//错误，scale(i)不是常量表达式
+</code></pre>
+<p>注：现在看上去用处不大，但是在高阶编程中可以优化程序性能，在更新的标准中有不同的描述，现阶段先理解意思。</p>
+</li>
+<li>
+<p>内联函数和constexpr函数一般放在头文件内。尽管与其它函数不同，这两种函数可以在程序中多次定义，但是对于某个给定的函数来说多个定义（注意声明和定义的区分）必须完全一致，所以通常定义在头文件内。</p>
+</li>
+<li>
+<p>调试帮助：assert和NDEBUG。assert是一种<strong>预处理宏(preprocessor marco)</strong>，预处理宏其实是一个预处理变量，行为类似内联函数。assert宏使用一个表达式作为它的条件：</p>
+<pre><code class="language-C++">assert(expr);
+//如果是假（0）输出信息并终止程序执行
+</code></pre>
+<p>assert宏定义在cassert头文件中。预处理名字由预处理器而非编译器管理(p49)，所以可以不用using声明，不用std::assert。宏名字在程序内必须唯一，所以即使没有用这个头文件也不要为了其他目的使用assert，许多头文件都会包括cassert。</p>
+<p>NDEBUG预处理变量：assert行为依赖于NDEBUG，如果定义了NDEBUG，则assert什么也不做，也就是说关闭其功能。定义：#define NDEBUG。assert应该仅用于验证那些确实不可能发生的事情，我们运用其作为调试程序的辅助手段，但是不能用于替代真正的运行时逻辑检查，也不能替代程序本身应该包含的错误检查。</p>
+<p>除了用于assert，NDEBUG也可以用于编写自己的条件调试代码。NDEBUG未定义，将执行#ifndef和#endif之间的代码，定义了之后这些代码就会被忽略掉：</p>
+<pre><code class="language-C++">void print(const int ia[], size_t size){
+#ifndef NDEBUG
+	//__func__是编译器定义的一个局部静态变量，用于存放函数的名字，它是const char的一个静态数组。
+	cerr &lt;&lt; __func__ &lt;&lt; &quot;: array size if &quot; &lt;&lt; size &lt;&lt; endl;
+#endif
+}
+//类似__func__，预处理器还定义了：
+//__FILE__存放文件名的字符串字面值
+//__LINE__存放当前行号的整型字面值
+//__TIME__存放文件编译时间的字符串字面值
+//__DATE__存放文件编译日期的字符串字面值
+//这样，我们可以在错误消息中提供更多信息
+</code></pre>
+</li>
+<li>
+<p>函数匹配</p>
+<pre><code class="language-C++">void f();
+void f(int);
+void f(int, int);
+void f(double, double = 3.14);
+f(5.6); //调用最后一个
+//逻辑：四个候选函数(candidate funciton)，两个可行函数(viable function)
+//调用第二个需要类型转换，第四个无需，选择第四个
+f(42, 2.56);//二义性，原因如下
+//更进一步：如果有且只有一个函数满足条件，则匹配成功：
+//1.该函数每个实参的匹配都不劣于其他可行函数需要的匹配
+//2.至少有一个实参的匹配优于其他可行函数提供的匹配
+//如果没有一个函数脱颖而出，则编译器报告二义性调用的信息
+//上面的例子中，对于第一个参数，第三个函数更好，第二个参数则认为第四个函数更好，所以无法编译通过
+</code></pre>
+<p>在设计良好的系统中，不应该对实参进行强制类型转换，否则说明设计的形参集合不合理。</p>
+</li>
+<li>
+<p>实参类型转换：</p>
+<pre><code class="language-C++">void ff(int);
+void ff(short);
+ff('a');
+//char提升成int,调用ff(int)
+//小整型一般都会提升到int或更大的整数类型，只有当调用提供的是short类型的值才会选择short版本函数
+</code></pre>
+<pre><code class="language-C++">//所有算术类型转换的级别都一样，从int向unsigned转换并不比int向double的转换级别高
+void manip(long);
+void manip(float);
+manip(3.14);//二义性调用，3.14是double，既能转换成long又能转换成float
+</code></pre>
+<pre><code class="language-C++">//如果重载函数的区别在于形参是否引用了const/指针是否指向const，则调用时编译器根据实参是否为常量来确定选择哪个
+Record lookup(Account&amp;);//函数的参数是引用
+Record lookup(const Account&amp;);//参数是常量引用
+const Account a;
+Account b;
+lookup(a);//调用第二个
+lookup(b);//调用第一个，但是第二个其实也行，但第一个是精确匹配
+//指针也类似，看实参指向常量还是非常量
+</code></pre>
+</li>
+<li>
+<p>函数指针：指向某种特定类型（返回类型+形参类型），与函数名无关。声明：用指针名替换函数名：</p>
+<pre><code class="language-C++">bool (*pf)(const string&amp;, const string&amp;);
+//pf指向一个函数，该函数的参数是两个const string的引用，返回值是bool类型。
+//*pf两边括号必不可少，不写的话pf是一个返回值为bool指针的函数
+</code></pre>
+<p>当我们把函数名作为一个值使用的时候，该函数自动转换为指针</p>
+<pre><code class="language-C++">pf = lengthCompare; //pf指向名为lengthCompare的函数
+pf = &amp;lengthCompare; //等价，就是把函数地址赋给了pf
+
+bool b1 = pf(&quot;hello&quot;, &quot;goodbye&quot;);//使用指针调用函数，无需解引用。
+bool b2 = (*pf)(&quot;hello&quot;, &quot;goodbye&quot;);//等价
+bool b3 = lengthCompare(&quot;hello&quot;, &quot;goodbye&quot;);//等价
+</code></pre>
+<p>指向不同函数类型的指针不存在转换规则。但是可以给函数指针赋一个nullptr或值为0的整型常量表达式，表示还没指向任何一个函数。也就是说一旦指向一个函数，指针的类型就被确定，要么指向类型（返回值+形参类型）精准相同的，要么不指向函数。</p>
+<p>如果使用重载函数，上下文必须清晰界定到底选用哪一个：</p>
+<pre><code class="language-C++">void ff(int *);
+void ff(unsigned int);
+
+void (*pf1)(unsigned int) = ff; //pf1指向ff(unsigned)
+//指针类型必须与重载函数中某一个精确匹配
+void (*pf2)(int) = ff;//错误
+double (*pf3)(int*) = ff;//返回类型不匹配
+</code></pre>
+</li>
+<li>
+<p>函数指针形参：形参可以是函数类型，会被当成指针使用：</p>
+<pre><code class="language-C++">void useBigger(const string &amp;s1, const string &amp;s2, bool pf(const string&amp;, const string&amp;));
+void useBigger(const string &amp;s1, const string &amp;s2, bool (*pf)(const string&amp;, const string&amp;));
+//上面两种等价，第三个形参是函数的时候会自动转换成指向函数的指针，第二种直接显式定义成指针
+useBigger(s1, s2, lengthCompare);//可以直接把函数作为实参使用，自动转换为指针
+//显得冗长繁琐？可以使用类型别名和decltype
+typedef bool Func(const string&amp;, const string&amp;);
+typedef decltype(lengthCompare) Func2;//等价的类型，其中Func和Func2是我定义的函数类型，用这个名字代表返回值是bool、形参是两个const string&amp;的这样一类函数
+//这一段理解了好久，这里decltype和typedef的用法和之前不一样（不知道书里干嘛还引用前文“参见”，有一定误导性）。
+//第二句更容易理解，Func2代表一种类型，也就是lengthCompare的类型
+typedef bool(*FuncP)(const string&amp;, const string&amp;);
+typedef decltype(lengthCompare) *FuncP2;//等价
+//FuncP和FuncP2是指针类型
+//decltype结果是函数类型，不会自动转成指针，所以要加上*
+//useBigger的等价声明，其中使用了类型别名
+void useBigger(const string&amp;, const string&amp;, Func);
+void useBigger(const string&amp;, const string&amp;, FuncP2);
+//同一个函数，第一条编译器自动把Func表示的函数类型转换成指针
+</code></pre>
+</li>
+<li>
+<p>返回指向函数的指针：和数组(p205)类似，虽然不能直接返回一个函数，但是可以返回指向函数类型的指针。编译器不会自动将函数返回类型当成对应指针处理。最简单的方法是类型别名：</p>
+<pre><code class="language-C++">using F = int(int *, int);//F是函数类型，不是指针
+using PF = int(*)(int*, int);//PF是指针类型
+//与函数类型的形参不一样，返回类型不会自动转换成指针，我们必须显式地将返回类型指定为指针
+PF f1(int);//正确，PF是指向函数的指针，f1返回指向函数的指针
+F f1(int);//错误，F是函数类型，f1不能返回一个函数
+F *f1(int);//正确，显式地指定返回类型是指向函数的指针
+int (*f1(int))(int *, int);//直接声明
+//理解：f1有形参列表，所以它是个函数，*表示f1返回一个指针，指针本身也包含形参列表，所以指针指向函数，该函数的返回类型是int。
+//尾置返回类型(p206)：
+auto f1(int) -&gt; int (*)(int*, int);
+//review：
+auto func(int i) -&gt; int(*)[10];
+//func接受一个int类型的实参，返回一个指针，该指针指向含有10个整数的数组
+//int *p1[10]是含有10个指针的数组，int (*p2)[10] = &amp;arr是一个指针，指向含有10个整数的数组arr，注意区分。这里表示返回值是一个指针，不能把(*)的括号去掉，要不然会变成数组元素类型是指针。
+</code></pre>
+<p>如果明确知道返回的函数是哪一个就能使用decltype简化书写函数指针返回类型的过程</p>
+<pre><code class="language-C++">string::size_type sumLength(const string&amp;, const string&amp;);
+string::size_type largerLength(const string&amp;, const string&amp;);
+decltype(sumLength) *getFcn(const string &amp;);
+//接受一个string类型的参数，返回一个指针，指向前两个函数（类型相同）中的一个
+//decltype作用于某个函数的时候返回的是函数类型而不是指针类型（多次强调），显式加上*表明我们需要返回指针而非函数本身。
+</code></pre>
+</li>
+</ol>
+<h3 id="chapter-7-类">Chapter 7 类</h3>
+<ol>
+<li>
+<p>在类中成员函数体用到成员函数但是不一定要在其之后，编译器先编译成员中的说明，再轮到成员函数体（如果有的话），所以成员函数体可以随意使用成员但是无需在意出现的次序。</p>
+</li>
+<li>
+<p>可以在类外部定义成员函数，其定义必须和声明匹配（返回类型、函数名、参数列表），如果是常量成员函数也必须在参数列表后明确指定const属性，同时在外部定义的成员的名字必须包含它所属的类名。</p>
+<pre><code class="language-C++">double Sales_data::avg_price() const{
+    //const放在参数列表之后意为不能修改任何成员
+    //放在前面会被理解成修饰返回值，实际上我们const修饰的是这个函数
+	if(units_sold)
+		return revenue / units_sold;//编译器理解这些代码都是在类的作用域内，所以这些成员都是隐式的Sales_data的成员，不用额外声明
+	else
+		return 0;
+}
+</code></pre>
+<p>返回this对象的函数</p>
+<pre><code class="language-C++">Sales_data&amp; Sales_data::combine(const Sales_data &amp;rhs){
+	units_sold += rhs.units_sold;
+    revenue += rhs.revenue;
+    return *this;//解引用指针
+}
+</code></pre>
+</li>
+<li>
+<p>一般来说，如果非成员函数是类接口的组成部分，这些函数的声明（如add、read、print）应该和类在同一个头文件内。</p>
+</li>
+<li>
+<p>编译器有些时候不能为某些类合成默认的构造函数，比如类中包含其他类类型的成员，这个成员的类型没有默认构造函数；也有可能合成的默认构造函数会执行错误的操作，如默认初始化的内置类型/复合类型成员可能会得到未定义的值。</p>
+</li>
+<li>
+<p>构造函数</p>
+<pre><code class="language-C++">struct Sales_data{
+    Sales_data() = default;//默认构造函数(C++11)，之所以可以用是因为内置类型的数据成员都提供了初始值。
+    Sales_data(const std:string &amp;s):bookNo(s){}
+    Sales_data(const std:string &amp;s,unsigned n,double p):
+    bookNo(s),units_sold(n),revenue(p*n){}
+    //:{}构造函数初始值列表(constructor initialize list)
+    //函数体均为空
+    Sales_data(std::istream &amp;);
+    //之前已有的其他成员
+    std:string isbn() const return bookNo;
+    Sales_data&amp; combine(const Sales_data&amp;);
+    double avg_price() const;
+    std::string bookNo;
+    unsigned units sold = 0;
+    double revenue = 0.0;
+}
+//与其他几个构造函数不同，以istream为参数的构造函数需要执行一些实际的操作。
+Sales_data::Sales_data(std::istream &amp;is){//函数初始值列表为空
+    read(is, *this);//从is中读取一条交易信息然后存进this对象中
+}
+</code></pre>
+</li>
+<li>
+<p>访问控制与封装：使用**访问说明符(access specifiers)**加强类的封装性：</p>
+<ol>
+<li>public在整个程序中都可以被访问，public成员定义类的接口。</li>
+<li>private可以被类的成员函数访问，不能被使用该类的代码访问。</li>
+<li>友元(friend)：如果Sales_data的数据成员是private的，read、print、add函数就无法正常编译了，尽管这几个函数是类的接口的一部分，但它们不是类的成员，我们可以使用friend关键字。</li>
+<li>封装的好处Java学过，就略去(p242)，不过类的定义发生改变时无须更改用户代码，但是使用了该类的源文件必须重新编译。</li>
+</ol>
+<pre><code class="language-C++">class Sales_data {
+//友元声明，不受访问说明符限制，一般在类定义开始或结束前集中声明
+friend Sales_data add(const Sales_data&amp;,const Sales data&amp;);
+friend std::istream &amp;read(std::istream&amp;,Sales_data&amp;);
+friend std::ostream &amp;print(std::ostream&amp;,const Sales data&amp;);
+public:
+//添加了访问说明符
+    Sales_data() = default;
+    Sales_data(const std::string &amp;s,unsigned n,double p):
+    bookNo(s),units_sold(n),revenue (p*n){}
+    Sales_data(const std:string &amp;s):bookNo(s){}
+    Sales_data(std::istream&amp;);
+    
+    std::string isbn()const return bookNo;
+    Sales_data &amp;combine(const Sales_data&amp;);
+private:
+//添加了访问说明符
+    double avg_price() const{
+    	return units_sold?revenue/units_sold:0;
+    }
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+//每个访问符可以任意次出现，效果持续到下个访问符或类的结尾处
+</code></pre>
+<p>在上面的定义中还有一处变化，即class代替了struct，唯一的区别是默认访问权限不太一样。类可以在第一个访问说明符之前定义成员，struct中这些成员是public，而在class中这些是private。</p>
+</li>
+<li>
+<p>友元补充：友元的声明仅仅指定了访问的权限，而非通常意义上的函数声明，如果我们希望类的用户能够调用某个友元函数，我们必须在友元函数外再专门对函数进行声明。为了使友元对类的用户可见，我们通常把友元的声明与类本身放置在同一个头文件里（类外部），因此，Sales_data头文件应该为read,print,add提供独立的声明（除了类内部的友元声明之外）。</p>
+</li>
+<li>
+<p>定义一个类型成员</p>
+<pre><code class="language-C++">class Screen
+public:
+	typedef std::string::size_type pos;
+//	using pos = std::string::size_type;等价
+// 类型成员必须先定义后使用
+private:
+    pos cursor = 0;
+    pos height = 0,width = 0;
+    std::string contents;
+};
+//在public部分定义了pos，这样用户就可以使用这个名字，而不应知道Screen使用了一个string对象存放它的数据，所以通过把pos定义成public成员可以隐藏Screen实现的细节。
+</code></pre>
+<p>（<strong>这一部分内容7.2-7.4以看示例代码为主，不作过多笔记</strong>）</p>
+</li>
+<li>
+<p>名字查找：先找名字所在块（只考虑名字使用之前的声明），再找外层作用域，找不到就报错；对于成员函数来说，先编译成员的声明，编译完所有类的声明之后再编译函数体（所以它可以使用类中定义的所有名字）</p>
+</li>
+<li>
+<p>构造函数初始值列表：构造函数的初始值有时候必不可少，比如成员是const/引用的话就必须初始化，成员属于某种类类型且没有定义默认构造函数也必须初始化。构造函数体一开始运行初始化就完成了，所以初始化const或者引用类型的数据成员的唯一机会就是构造函数初始值：</p>
+</li>
+</ol>
+<pre><code class="language-C++">class ConstRef{
+public:
+ ConstRef(int ii);
+private:
+ int i;
+ const int ci;
+ int &amp;ri;
+}
+ConstRef::ConstRef(int ii){
+ i = ii; //正确
+ ci = ii; //错误，不能给const赋值
+ ri = i; //错误，ri没被初始化
+}
+ConstRef::ConstRef(int ii): i(ii), ci(ii), ri(i){}//正确
+</code></pre>
+<p>坑点*1：成员初始化的顺序取决于它们在类定义中的出现顺序而不是构造函数初始值列表里的顺序：</p>
+<pre><code class="language-C++">class X{
+ int i; int j;
+public:
+ X(int val): j(val), i(j){}
+};//错误，看上去是先初始化j，实际上是i先被初始化！
+ X(int val): j(val), i(val){}
+//更好的形式，避免使用同一个对象的其他成员
+</code></pre>
+<ol start="11">
+<li>
+<p>使用默认构造函数：</p>
+<pre><code class="language-C++">Sales_data obj();//定义了一个函数而非对象
+Sales_data obj2;//正确，声明了一个对象并使用默认构造函数
+</code></pre>
+</li>
+<li>
+<p>隐式的类类型转换：可以用构造函数对应的类型来代替这个类：</p>
+<pre><code class="language-C++">string null_book = &quot;9-999-99999-9&quot;;
+item.combine(null_book);
+//编译器用给定的string自动创建了一个Sales_data对象（临时量，combine的参数是一个常量引用，可以传临时量）
+</code></pre>
+<p>编译器只会执行一步类型转换：</p>
+<pre><code class="language-C++">item.combine(&quot;9-999-99999-9&quot;);//错误，先把字面量转成string，再转成Sales_data有两步
+item.combine(string(&quot;9-999-99999-9&quot;));//这样才行
+</code></pre>
+<p>如果为构造函数声明explicit，这种转换会被阻止：</p>
+<pre><code class="language-C++">...
+explicit Sales_data(const std::string &amp;s):bookNo(s){};
+...
+item.combine(null_book);//错误，因为没有string对应的构造函数可以隐式地创建Sales_data对象
+//explicit只对一个实参的构造函数有效。需要多个实参的构造函数不能用于隐式转换。
+//explicit只允许出现在类内的构造函数声明处，类外部定义的时候不应重复。（分清声明与定义！）
+</code></pre>
+<p>虽然explicit构造函数不会用于隐式转换过程，但是我们还是可以显式强转：</p>
+<pre><code class="language-C++">item.combine(Sales_data(null_book));
+item.combine(static_cast&lt;Sales_data&gt;(cin));
+</code></pre>
+<p>标准库中含有显式构造函数的类：string（const char*单参数，不是explicit的）, vector（单参数表示容量，是explicit的）。</p>
+</li>
+<li>
+<p><strong>聚合类(aggregate class)</strong>：所有成员都是public的，没有构造函数，没有类内初始值，没有基类和virtual函数(15章)。</p>
+<pre><code class="language-C++">struct Data{
+    int ival;
+    string s;
+};
+Data val1 = {0, &quot;Anna&quot;};
+//用花括号括起来的成员初始值列表，初始值顺序必须和声明的顺序一致。
+//列表中数量少了，剩下就自动值初始化；列表中数量不能多出来。
+</code></pre>
+<p>聚合类的缺点很多：</p>
+<ol>
+<li>要求所有成员都public</li>
+<li>正确初始化的任务寄托给用户，容易出错</li>
+<li>添加或删除成员时所有初始化语句都需要更新</li>
+</ol>
+</li>
+</ol>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://hyle33ies.github.io/tag/EsFMHa1fv/" class="tag">
+                    CSlearning_diary
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://hyle33ies.github.io/post/cs61a-log-pt1-week1-7/">
+                  <h3 class="post-title">
+                    CS61A Log Pt.1 (Week1-7)
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
